@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Hello guys.I’m going to continue with the post related to how to use jquery datatables, it will give you more context, because now we are going to filter the information retrieved by the dataTables fr">
+<meta name="keywords" content="ASP.NET Core,JQuery,DataTables,VSCode">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)">
+<meta property="og:url" content="http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/index.html">
+<meta property="og:site_name" content="Code Rocks!">
+<meta property="og:description" content="Hello guys.I’m going to continue with the post related to how to use jquery datatables, it will give you more context, because now we are going to filter the information retrieved by the dataTables fr">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_1.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_2.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_3.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_4.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_5.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_6.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_7.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_8.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_9.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_10.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_11.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_12.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_13.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_14.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_15.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_16.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2017/12/p2_201712_17.png">
+<meta property="og:updated_time" content="2017-12-27T00:34:00.063Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)">
+<meta name="twitter:description" content="Hello guys.I’m going to continue with the post related to how to use jquery datatables, it will give you more context, because now we are going to filter the information retrieved by the dataTables fr">
+<meta name="twitter:image" content="http://coderocks.co/content/images/2017/12/p2_201712_1.png">
+    
+    
+        
+          <link rel="shortcut icon" href="/images/strat-favicon.ico">
+        
+        
+          <link rel="icon" type="image/png" href="/images/strat-favicon-192x192.png" sizes="192x192">
+        
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/strat-apple-touch-icon.png">
+        
+    
+    <!-- title -->
+    <title>ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$("#i-prev").toggle();" onmouseout="$("#i-prev").toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2017/01/10/aspnetCore-Using-JQuery-DataTables/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$("#i-next").toggle();" onmouseout="$("#i-next").toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$("#i-top").toggle();" onmouseout="$("#i-top").toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$("#i-share").toggle();" onmouseout="$("#i-share").toggle();" onclick="$("#share").toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&text=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&is_video=false&description=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)&body=Check out this article: http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&name=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prerequisites"><span class="toc-number">1.</span> <span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-web-app-based-on-template"><span class="toc-number">2.</span> <span class="toc-text">Creating web app based on template</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filtering-JQuery-DataTables"><span class="toc-number">3.</span> <span class="toc-text">Filtering JQuery-DataTables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">4.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Code Rocks!</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-12-27T00:40:00.000Z" itemprop="datePublished">2017-12-26</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a>, <a class="tag-link" href="/tags/DataTables/">DataTables</a>, <a class="tag-link" href="/tags/JQuery/">JQuery</a>, <a class="tag-link" href="/tags/VSCode/">VSCode</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Hello guys.<br>I’m going to continue with the <a href="http://coderocks.co/2017/01/10/aspnetCore-Using-JQuery-DataTables/">post</a> related to how to use jquery datatables, it will give you more context, because now we are going to filter the information retrieved by the dataTables from the backend and we are going to use asp.net core 2.0.</p>
+<h2 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h2><p>Install .net core and aspnet .net core sdk’s, you can get them <a href="https://www.microsoft.com/net/download/windows" target="_blank" rel="noopener">here</a>.<br>Let’s create the web application, I’m going to use VS Code.</p>
+<h2 id="Creating-web-app-based-on-template"><a href="#Creating-web-app-based-on-template" class="headerlink" title="Creating web app based on template"></a>Creating web app based on template</h2><p>First we have to create a folder in any location in our local PC, going to use <strong>C:\aspnetCoreJQueryDataTables-2.0</strong>, so let’s Run <strong>Visual Studio Code</strong> and open <strong>Terminal</strong><br><img src="/content/images/2017/12/p2_201712_1.png" alt="VS Code - Terminal" title="VS Code - Terminal"></p>
+<p>Now using <strong>Terminal</strong> we can run some <strong>commands</strong> in .net Core CLI to create our project using templates.<br><a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet?tabs=netcore2x" target="_blank" rel="noopener">Here</a> you can check all the commands, in this case we are going to use <strong><a href="https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore2x" target="_blank" rel="noopener">dotnet new</a></strong> to create a web application based on a template.</p>
+<p>In Terminal type <strong>dotnet new mvc -n Abc.Web</strong> (mvc: template, -n: name of the application folder), run it<br><img src="/content/images/2017/12/p2_201712_2.png" alt="VS Code - Terminal" title="VS Code - Terminal"></p>
+<p>Now we have our application structure from the <strong>mvc</strong> template<br><img src="/content/images/2017/12/p2_201712_3.png" alt="VS Code - mvc template" title="VS Code - mvc template"></p>
+<p>Don’t forget to install <strong>Debugger for Chrome</strong> extension, (as the name says, allows us to debug using chrome)<br><img src="/content/images/2017/12/p2_201712_4.png" alt="VS Code - Extensions" title="VS Code - Extensions"></p>
+<p>Just search for <strong>debugger</strong> in the search input of <strong>Extensions</strong> Pane, then install it.<br><img src="/content/images/2017/12/p2_201712_5.png" alt="VS Code - Debugger for Chrome" title="VS Code - Debugger for Chrome"></p>
+<p>To use the debugger we have to configure it using some files located at <strong>.vscode</strong> folder, the steps are detailed in this <a href="https://github.com/Microsoft/vscode-chrome-debug" target="_blank" rel="noopener">link</a> (very useful documentation), or just use those two files that I’m going to create in .vscode folder<br><strong>tasks.json</strong>, is going to <strong>make a build</strong> before doing a debugging<br><img src="/content/images/2017/12/p2_201712_6.png" alt="VS Code - tasks.json" title="VS Code - tasks.json"></p>
+<p><strong>launch.json</strong> is going to <strong>run chrome</strong> and use a parameterized url to make a request to finally start debugging our application<br><img src="/content/images/2017/12/p2_201712_7.png" alt="VS Code - launch.json" title="VS Code - launch.json"></p>
+<h2 id="Filtering-JQuery-DataTables"><a href="#Filtering-JQuery-DataTables" class="headerlink" title="Filtering JQuery-DataTables"></a>Filtering JQuery-DataTables</h2><p>I’m going to reuse some code from the <a href="http://coderocks.co/2017/01/10/aspnetCore-Using-JQuery-DataTables/">previous post</a> to ease this one.</p>
+<p>In <strong>Models</strong> folder, let’s create an <strong>Item Model</strong><br><img src="/content/images/2017/12/p2_201712_8.png" alt="VS Code - Item Model" title="VS Code - Item Model"></p>
+<p>Let’s create an <strong>api</strong> folder, inside create a file <strong>ItemsController.cs</strong><br><img src="/content/images/2017/12/p2_201712_9.png" alt="VS Code - ItemsController" title="VS Code - ItemsController"></p>
+<p>We are going to use in <strong>/Home/Views/Index</strong> view this code<br><img src="/content/images/2017/12/p2_201712_10.png" alt="VS Code - Index view" title="VS Code - Index view"></p>
+<p>Add a new parameter to support searching<br><img src="/content/images/2017/12/p2_201712_11.png" alt="VS Code - setting up JQuery DataTable" title="VS Code - setting up JQuery DataTable"></p>
+<p>Let’s do some changes on <strong>Items Api</strong> to support searching<br>In <strong>ProcessCollection</strong> method we are going to check for another form data item “search[value]”<br><img src="/content/images/2017/12/p2_201712_12.png" alt="VS Code - ProcessCollection method" title="VS Code - ProcessCollection method"></p>
+<p>Now we are going to add <strong>Where linq</strong> code, in this case we are going to when <strong>Name</strong> or <strong>Description</strong> contains the search criteria.<br><img src="/content/images/2017/12/p2_201712_13.png" alt="VS Code - where linq" title="VS Code - where linq"></p>
+<p>Now we have to get total records filtered, we use <strong>GetTotalRecordsFiltered</strong> method for it.<br><img src="/content/images/2017/12/p2_201712_14.png" alt="VS Code - GetTotalRecordsFiltered method" title="VS Code - GetTotalRecordsFiltered method"></p>
+<p>The request should look like this<br><img src="/content/images/2017/12/p2_201712_15.png" alt="VS Code - post request" title="VS Code - post request"></p>
+<p>Let’s run it, click on debug icon then click on <strong>Start debugging</strong><br><img src="/content/images/2017/12/p2_201712_16.png" alt="VS Code - Start Debugging" title="VS Code - Start Debugging"></p>
+<p>Now we’ll see a new search input field, when we type it will automatically filter<br><img src="/content/images/2017/12/p2_201712_17.png" alt="Now it&#39;s Filtering from backend side" title="Now it&#39;s Filtering from backend side"></p>
+<p>You can download the source code from the <a href="https://github.com/skn0/aspnetCore2.0-JQueryDataTables-Filtering" target="_blank" rel="noopener">repository</a>.</p>
+<h2 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus:"></a>Bonus:</h2><p>Taking someone’s words, Luther Allison was strong influence for blues 60’s musicians. Great solo with a really cool effect, with this song for the first time I heard the octave pedal, unique…<br><a href="https://open.spotify.com/track/6kJMw7nuBU7vKlOFI4lY3I" target="_blank" rel="noopener">Luther Allison -  Bad News Is Coming (live Montreaux 76-94)</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Prerequisites"><span class="toc-number">1.</span> <span class="toc-text">Prerequisites</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Creating-web-app-based-on-template"><span class="toc-number">2.</span> <span class="toc-text">Creating web app based on template</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Filtering-JQuery-DataTables"><span class="toc-number">3.</span> <span class="toc-text">Filtering JQuery-DataTables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">4.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&text=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&is_video=false&description=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)&body=Check out this article: http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&title=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2017/12/26/aspnetCore2-Using-JQuery-DataTables-Filtering/&name=ASP.NET Core 2.0 - Using JQuery DataTables - Filtering (VSCode)&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$("#toc-footer").toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$("#share-footer").toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$("#nav-footer").toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Code Rocks!
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-88773065-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'http-coderocks-co';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
