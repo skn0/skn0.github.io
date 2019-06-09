@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Hello, long time ago since my last post, but I’m back and wanting to share more frecuent posts and be more active.In this post I want to show you how we could create a custom logger that logs into the">
+<meta name="keywords" content="ASP.NET Core,Serilog,Database Logger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Custom Db logger library using Serilog (ASP.NET Core 2.2)">
+<meta property="og:url" content="http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/index.html">
+<meta property="og:site_name" content="Code Rocks!">
+<meta property="og:description" content="Hello, long time ago since my last post, but I’m back and wanting to share more frecuent posts and be more active.In this post I want to show you how we could create a custom logger that logs into the">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_1.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_2.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_3.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_4.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_5.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_6.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_7.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_8.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_9.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_10.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_11.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_12.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_13.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_14.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_15.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_16.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_17.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_18.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_19.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_20.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_21.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_22.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_23.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_24.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2019/6/p1_20196_25.png">
+<meta property="og:updated_time" content="2019-06-09T18:22:21.804Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Custom Db logger library using Serilog (ASP.NET Core 2.2)">
+<meta name="twitter:description" content="Hello, long time ago since my last post, but I’m back and wanting to share more frecuent posts and be more active.In this post I want to show you how we could create a custom logger that logs into the">
+<meta name="twitter:image" content="http://coderocks.co/content/images/2019/6/p1_20196_1.png">
+    
+    
+        
+          <link rel="shortcut icon" href="/images/strat-favicon.ico">
+        
+        
+          <link rel="icon" type="image/png" href="/images/strat-favicon-192x192.png" sizes="192x192">
+        
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/strat-apple-touch-icon.png">
+        
+    
+    <!-- title -->
+    <title>Custom Db logger library using Serilog (ASP.NET Core 2.2)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2017/01/10/aspnetCore-Using-JQuery-DataTables/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$("#i-next").toggle();" onmouseout="$("#i-next").toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$("#i-top").toggle();" onmouseout="$("#i-top").toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$("#i-share").toggle();" onmouseout="$("#i-share").toggle();" onclick="$("#share").toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&text=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&is_video=false&description=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Custom Db logger library using Serilog (ASP.NET Core 2.2)&body=Check out this article: http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&name=Custom Db logger library using Serilog (ASP.NET Core 2.2)&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Serilog"><span class="toc-number">1.</span> <span class="toc-text">Why Serilog?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Approach"><span class="toc-number">2.</span> <span class="toc-text">The Approach</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hands-on"><span class="toc-number">3.</span> <span class="toc-text">Hands on</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Logger"><span class="toc-number">3.1.</span> <span class="toc-text">Logger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-App"><span class="toc-number">3.2.</span> <span class="toc-text">Web App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">4.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Custom Db logger library using Serilog (ASP.NET Core 2.2)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Code Rocks!</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2019-06-09T15:31:28.000Z" itemprop="datePublished">2019-06-09</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a>, <a class="tag-link" href="/tags/Database-Logger/">Database Logger</a>, <a class="tag-link" href="/tags/Serilog/">Serilog</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Hello, long time ago since my last post, but I’m back and wanting to share more frecuent posts and be more active.<br>In this post I want to show you how we could create a custom logger that logs into the database. In this case we are going to use <strong>serilog</strong> (right now <a href="https://serilog.net" target="_blank" rel="noopener">2.8.0</a> (<a href="https://github.com/serilog" target="_blank" rel="noopener">here</a> you’ll see source code of different approaches) and we are going to create custom properties to add more detail.</p>
+<h2 id="Why-Serilog"><a href="#Why-Serilog" class="headerlink" title="Why Serilog?"></a>Why Serilog?</h2><p>It allows us to do <strong>structured logging</strong> (the way serilog organizes the data makes it easier to query over the information), we could log information and properties (more info <a href="https://github.com/serilog/serilog/wiki/Structured-Data" target="_blank" rel="noopener">here</a>).</p>
+<h2 id="The-Approach"><a href="#The-Approach" class="headerlink" title="The Approach"></a>The Approach</h2><p>This approach uses configuration from a configuration file and we are going to implement some stuff from code as well (<a href="https://github.com/serilog/serilog-sinks-mssqlserver#code--systemconfiguration" target="_blank" rel="noopener">configuration+code</a>).<br>In case you want to check in depth <a href="https://github.com/serilog/serilog-settings-configuration" target="_blank" rel="noopener">this</a> is a good introduction to understand how serilog uses entries from a configuration file.</p>
+<h2 id="Hands-on"><a href="#Hands-on" class="headerlink" title="Hands on"></a>Hands on</h2><p>Let’s <strong>create a solution</strong> with 2 projects (web application project that will use a library). In the start page let’s create a <strong>blank solution</strong><br><img src="/content/images/2019/6/p1_20196_1.png" alt="New Project - Blank Solution" title="New Project - Blank Solution"></p>
+<p>I’m going to call it <strong>aspnetCorelogging</strong>, we are going to <strong>create a web application</strong> to use our library<br><img src="/content/images/2019/6/p1_20196_2.png" alt="Configure new project" title="Configure new project"></p>
+<p>Add new project<br><img src="/content/images/2019/6/p1_20196_3.png" alt="Add new project" title="Add new project"></p>
+<p>I select ASP.NET Core Web Application<br><img src="/content/images/2019/6/p1_20196_4.png" alt="Asp.Net Core project" title="Asp.Net Core project"></p>
+<p>I’m gonna call it <strong>Abc.Web</strong><br><img src="/content/images/2019/6/p1_20196_5.png" alt="Asp.Net Core project" title="Asp.Net Core project"></p>
+<p>Let’s select <strong>api</strong> to use a controller that the template creates for us<br><img src="/content/images/2019/6/p1_20196_6.png" alt="Asp.net Core project - Api template" title="Asp.net Core project - Api template"></p>
+<p>Let’s create a <strong>library</strong> to implement our <strong>custom logger</strong>.Add a new project then select Class library (.NET Core)<br><img src="/content/images/2019/6/p1_20196_7.png" alt="Add new project" title="Add new project"></p>
+<p>I’m going to call this library <strong>CLogger</strong><br><img src="/content/images/2019/6/p1_20196_8.png" alt=".Net Core Library" title=".Net Core Library"></p>
+<p>Add 2 items, an Interface called <strong>Ilogger</strong> and a class <strong>Logger</strong>, we would have something like<br><img src="/content/images/2019/6/p1_20196_9.png" alt=".Net Core Library - Items" title=".Net Core Library - Items"></p>
+<p>The most basic way to log using serilog or any log is to send information classified by a particular log level (debug, information, warning, error, etc) <a href="https://github.com/serilog/serilog/wiki/Getting-Started" target="_blank" rel="noopener">more info</a>.<br>So we are going to create a <strong>generic way to log information</strong>, in <strong>LogInformation method</strong> we are going to pass the log level, exception (optional) and data to log (properties).</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">LogInformation</span>(<span class="params">LogLevels eventLevel, <span class="keyword">string</span> information, Exception ex = <span class="literal">null</span>, <span class="keyword">params</span> <span class="keyword">object</span>[] values</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>We need a structure for log levels, add a <strong>new item</strong> a “code file” called <strong>LogLevels</strong><br><img src="/content/images/2019/6/p1_20196_10.png" alt="Code file LogLevels" title="Code file LogLevels"></p>
+<p>The web application is going to use our custom library, the library is going <strong>to use serilog</strong>, let’s <strong>add</strong> the <strong>packages</strong>. In the <strong>package manager console</strong> (Tools menu, nuget package manager), select as default project <strong>Clogger</strong><br><img src="/content/images/2019/6/p1_20196_11.png" alt="Package Manager Console" title="Package Manager Console"></p>
+<p>Install all these packages</p>
+<ol>
+<li>Install-Package Serilog -Version 2.8.0</li>
+<li>Install-Package Microsoft.Extensions.Configuration.Json</li>
+<li>Install-Package Microsoft.Extensions.Configuration.EnvironmentVariables</li>
+<li>Install-Package Serilog.Sinks.MSSqlServer</li>
+</ol>
+<p>The first one is needed to use <strong>serilog</strong>, 2 and 3 to support <strong>configuration settings</strong> from <strong>file</strong> and <strong>code</strong>. The forth one is needed <strong>to connect to database</strong> (sql server, but you can use <strong>any other database engine or any other origin/target provider</strong>, <a href="https://github.com/serilog/serilog/wiki/Provided-Sinks" target="_blank" rel="noopener">more info</a>).</p>
+<h3 id="Logger"><a href="#Logger" class="headerlink" title="Logger"></a>Logger</h3><p>Let’s implement Logger<br>First we are going to create a Configuration property that’s going to give us information using configuration file (reference required Microsoft.Extensions.Configuration; )<br><img src="/content/images/2019/6/p1_20196_12.png" alt="Logger Implementation" title="Logger Implementation"></p>
+<p>Let’s implement <strong>LogInformation</strong><br><img src="/content/images/2019/6/p1_20196_13.png" alt="LogInformation" title="LogInformation"></p>
+<p>So we are going to get information from a <strong>configuration file</strong> let’s <strong>create appsettings.json json file</strong></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">    <span class="string">"LoggingDatabase"</span>: <span class="string">"SERVER=.\\SQLEXPRESS;Database=Logging;Trusted_Connection=True;ConnectRetryCount=0"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="string">"CustomLoggingLevel"</span>: <span class="string">"Debug"</span>,</span><br><span class="line">  <span class="string">"LoggingTable"</span>: <span class="string">"Logs"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Connection String</strong> is going to have the database connection where we are going to log<br><strong>CustomLoggingLevel</strong> is the initial level where the library is going to log, lower level than that, is going to be ignored.<br><strong>LoggingTable</strong> is the name of the table which stores the log data</p>
+<p>Create a <strong>new database</strong><br><img src="/content/images/2019/6/p1_20196_14.png" alt="New Database" title="New Database"></p>
+<p>Run this script <strong>to create</strong> the log <strong>table</strong> (based on <a href="https://github.com/serilog/serilog-sinks-mssqlserver#table-definition" target="_blank" rel="noopener">documentation</a> and <a href="https://github.com/serilog/serilog-sinks-mssqlserver#audit-sink-configuration" target="_blank" rel="noopener">this one</a>)</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">  CREATE TABLE [Logs] (</span><br><span class="line">   [<span class="meta">Id</span>] <span class="function"><span class="keyword">int</span> <span class="title">IDENTITY</span>(<span class="params"><span class="number">1</span>,<span class="number">1</span></span>) NOT NULL,</span></span><br><span class="line"><span class="function">   [Source] <span class="title">nvarchar</span>(<span class="params"><span class="number">500</span></span>) NULL,</span></span><br><span class="line"><span class="function">   [Message] <span class="title">nvarchar</span>(<span class="params">max</span>) NULL,</span></span><br><span class="line"><span class="function">   [MessageTemplate] <span class="title">nvarchar</span>(<span class="params">max</span>) NULL,</span></span><br><span class="line"><span class="function">   [Level] <span class="title">nvarchar</span>(<span class="params"><span class="number">128</span></span>) NULL,</span></span><br><span class="line"><span class="function">   [TimeStamp] datetime NOT NULL,</span></span><br><span class="line"><span class="function">   [Exception] <span class="title">nvarchar</span>(<span class="params">max</span>) NULL,</span></span><br><span class="line"><span class="function">    -- store properties data <span class="keyword">as</span> <span class="title">JSON</span> (<span class="params">nvarchar</span>) or XML</span></span><br><span class="line"><span class="function">   --[Properties] <span class="title">nvarchar</span>(<span class="params">max</span>) NULL</span></span><br><span class="line"><span class="function">   [Properties] xml NULL</span></span><br><span class="line"><span class="function">   CONSTRAINT [PK_Logs] PRIMARY KEY <span class="title">CLUSTERED</span> (<span class="params">[Id] ASC</span>)</span></span><br><span class="line"><span class="function">)</span>;</span><br></pre></td></tr></table></figure>
+<p>With an additional column <strong>Source</strong> to show how you can add more detail to the logs.</p>
+<p>Let’s <strong>go back to Logger</strong> class to explain what we are doing when logging information<br><img src="/content/images/2019/6/p1_20196_15.png" alt="LogInformation" title="LogInformation"></p>
+<p>From <strong>lines 20 to 22</strong> we get information from our configuration file appsettings.json (this one be created in the application that uses our library)<br>In <strong>line 26</strong> we get add additional columns to use the object when we instantiate LoggerConfiguration<br>LoggerConfiguration (<strong>lines 38-56</strong>, check <a href="https://github.com/serilog/serilog/wiki/Lifecycle-of-Loggers" target="_blank" rel="noopener">this</a> and <a href="https://github.com/serilog/serilog-sinks-mssqlserver#code-only-any-net-target" target="_blank" rel="noopener">this</a>).<br>We are doing <a href="https://github.com/serilog/serilog-sinks-mssqlserver#code--microsoftextensionsconfiguration" target="_blank" rel="noopener">this</a>.<br><img src="/content/images/2019/6/p1_20196_16.png" alt="LoggerConfiguration" title="LoggerConfiguration"></p>
+<p>Going <strong>back to line 26</strong> in GetColumnsOptions method we are going to <strong>add</strong> an <strong><a href="https://github.com/serilog/serilog-sinks-mssqlserver#additionalcolumns" target="_blank" rel="noopener">additional column</a></strong> called <strong>Source</strong><br><img src="/content/images/2019/6/p1_20196_17.png" alt="Additional Columns" title="Additional Columns"></p>
+<p>I recommend to <strong>enable log</strong> over serilog object that we are going to create, it’s going to <strong>log information</strong> in the console <strong>when debugging</strong> (on Output window you will see the information.<br><img src="/content/images/2019/6/p1_20196_18.png" alt="Log in console to trace any serilog issues" title="Log in console to trace any serilog issues"></p>
+<h3 id="Web-App"><a href="#Web-App" class="headerlink" title="Web App"></a>Web App</h3><p>Let’s add <strong>reference</strong> the <strong>library</strong> in the web solution. Right click on <strong>Dependencies</strong> then <strong>add reference</strong>.<br><img src="/content/images/2019/6/p1_20196_19.png" alt="Add library reference" title="Add library reference"></p>
+<p>Click on <strong>Projects</strong> select <strong>Clogger</strong><br><img src="/content/images/2019/6/p1_20196_20.png" alt="Add library reference" title="Add library reference"></p>
+<p>Let’s edit <strong>appSettings.json</strong> in Abc.Web project. Add these <strong>config entries</strong><br><img src="/content/images/2019/6/p1_20196_21.png" alt="appSettings" title="AppSettings"></p>
+<p>In <strong>Startup.cs</strong> we need <strong>register</strong> the <strong>dependency</strong><br><img src="/content/images/2019/6/p1_20196_22.png" alt="Register Dependencies" title="Register Dependencies"></p>
+<p>When calling <strong>api/values</strong>, we are logging some information (the last in parameter you’ll see that contains the properties you want log besides the information you are logging).<br><img src="/content/images/2019/6/p1_20196_23.png" alt="Logging info in ValuesController" title="Logging info in ValuesController"></p>
+<p>Serilog logs the properties that you added in a particular way (you should put your properties between <a href="https://github.com/serilog/serilog/wiki/Writing-Log-Events#message-template-syntax" target="_blank" rel="noopener">brackets</a>), let’s run the app and see how it logs in database<br><img src="/content/images/2019/6/p1_20196_24.png" alt="Log in Database" title="Log in Database"></p>
+<p>There’s a column <strong>Properties</strong> that <strong>store all the properties</strong> we wanted to include when logging, in this case we let the LoggerConfiguration to <strong>store properties</strong> as a XML string (we can query using <strong>XQuery</strong>), but it also supports JSON (we can query using <strong>JSON path</strong>) you could check more info <a href="https://github.com/serilog/serilog-sinks-mssqlserver#querying-property-data" target="_blank" rel="noopener">here</a>.<br><img src="/content/images/2019/6/p1_20196_25.png" alt="Querying over log table" title="Querying over log table"></p>
+<p>So as you can see <strong>Serilog offers a lot of features</strong> and different ways to log information into a target (cloud, txt, database, console, etc). I hope this post will be a starting point for you to create your own logger.</p>
+<p>You can download the source from the <a href="https://github.com/skn0/aspnetCoreSerilogDb" target="_blank" rel="noopener">repository</a>.</p>
+<h2 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus:"></a>Bonus:</h2><p>Don’t forget before starting to code, play a heavy list of songs. I found this really cool soul rock song by accident, so add it to your list.<br><a href="https://open.spotify.com/track/0w71NjrPNzBsa6yO0of2CZ" target="_blank" rel="noopener">The Altons - Gotcha</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Serilog"><span class="toc-number">1.</span> <span class="toc-text">Why Serilog?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#The-Approach"><span class="toc-number">2.</span> <span class="toc-text">The Approach</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hands-on"><span class="toc-number">3.</span> <span class="toc-text">Hands on</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Logger"><span class="toc-number">3.1.</span> <span class="toc-text">Logger</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Web-App"><span class="toc-number">3.2.</span> <span class="toc-text">Web App</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">4.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&text=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&is_video=false&description=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Custom Db logger library using Serilog (ASP.NET Core 2.2)&body=Check out this article: http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&title=Custom Db logger library using Serilog (ASP.NET Core 2.2)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/&name=Custom Db logger library using Serilog (ASP.NET Core 2.2)&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$("#toc-footer").toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$("#share-footer").toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$("#nav-footer").toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Code Rocks!
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-88773065-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'http-coderocks-co';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>

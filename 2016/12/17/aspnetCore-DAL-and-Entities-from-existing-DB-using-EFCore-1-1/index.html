@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Hi guys, in this post I want to show you an approach for ASP.NET Core (in this moment we have the 1.0.3) to show information through a data access layer from an existing Database using the new Entity">
+<meta name="keywords" content="ASP.NET Core,Entity Framework Core">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)">
+<meta property="og:url" content="http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/index.html">
+<meta property="og:site_name" content="Code Rocks!">
+<meta property="og:description" content="Hi guys, in this post I want to show you an approach for ASP.NET Core (in this moment we have the 1.0.3) to show information through a data access layer from an existing Database using the new Entity">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_1.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_2.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_3.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_4.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_5.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_6.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_7.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_8.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_9.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_10.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_11.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_12.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_13.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_14.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_15.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_16.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_17.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_18.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_19.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_20.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_21.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_22.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_23.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_24.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_25.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_26.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_27.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_28.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_29.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_30.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_31.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_32.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_33.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_34.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_35.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_36.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_37.png">
+<meta property="og:image" content="http://coderocks.co/content/images/2016/12/p1_38.png">
+<meta property="og:updated_time" content="2017-04-08T18:37:23.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)">
+<meta name="twitter:description" content="Hi guys, in this post I want to show you an approach for ASP.NET Core (in this moment we have the 1.0.3) to show information through a data access layer from an existing Database using the new Entity">
+<meta name="twitter:image" content="http://coderocks.co/content/images/2016/12/p1_1.png">
+    
+    
+        
+          <link rel="shortcut icon" href="/images/strat-favicon.ico">
+        
+        
+          <link rel="icon" type="image/png" href="/images/strat-favicon-192x192.png" sizes="192x192">
+        
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/strat-apple-touch-icon.png">
+        
+    
+    <!-- title -->
+    <title>ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+    <link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+    <!-- jquery -->
+    <script src="/lib/jquery/jquery.min.js"></script>
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </span>
+    <br>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/01/10/aspnetCore-Using-JQuery-DataTables/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$("#i-prev").toggle();" onmouseout="$("#i-prev").toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2016/12/10/hello-world/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$("#i-next").toggle();" onmouseout="$("#i-next").toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$("#i-top").toggle();" onmouseout="$("#i-top").toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$("#i-share").toggle();" onmouseout="$("#i-share").toggle();" onclick="$("#share").toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&text=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&is_video=false&description=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)&body=Check out this article: http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&name=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Database-Project"><span class="toc-number">1.</span> <span class="toc-text">Database Project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-and-DAL-Projects"><span class="toc-number">2.</span> <span class="toc-text">Web and DAL Projects</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-Web"><span class="toc-number">2.1.</span> <span class="toc-text">Setting up Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-DAL"><span class="toc-number">2.2.</span> <span class="toc-text">Setting up DAL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">3.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Code Rocks!</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-12-18T03:10:03.000Z" itemprop="datePublished">2016-12-17</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ASP-NET-Core/">ASP.NET Core</a>, <a class="tag-link" href="/tags/Entity-Framework-Core/">Entity Framework Core</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>Hi guys, in this post I want to show you an approach for ASP.NET Core (in this moment we have the <a href="https://github.com/aspnet/Home/wiki/Roadmap" target="_blank" rel="noopener">1.0.3</a>) to show information through a data access layer from an existing Database using the new <a href="https://docs.microsoft.com/en-us/ef/core/index" target="_blank" rel="noopener">Entity Framework Core</a> (right now we have the EF Core <a href="https://github.com/aspnet/EntityFramework/wiki/Roadmap" target="_blank" rel="noopener">1.1</a>). Let’s start!…</p>
+<h2 id="Database-Project"><a href="#Database-Project" class="headerlink" title="Database Project"></a>Database Project</h2><p>First we create a blank solution, then we can add the project we want. In the solution root we add a new project.<br><img src="/content/images/2016/12/p1_1.png" alt="create a new project" title="solution root - new project"></p>
+<p>Select SQL Server Database Project<br><img src="/content/images/2016/12/p1_2.png" alt="database project" title="database project"></p>
+<p>Then we create two basic tables (Product and ProductType)<br><img src="/content/images/2016/12/p1_3.png" alt="product table" title="product table"></p>
+<p><img src="/content/images/2016/12/p1_4.png" alt="product type table" title="product type table"></p>
+<p>Then we create a simple stored procedure to get a product with a given Identifier<br><img src="/content/images/2016/12/p1_5.png" alt="stored procedure" title="stored procedure"></p>
+<p>We build and then we can publish the Db<br><img src="/content/images/2016/12/p1_6.png" alt="publish db" title="publish db"></p>
+<p>When we try to publish our DB at first time, we have to setup a profile to future deployments, in <strong>Database name</strong> I omit the dots and I use capital letters to keep a good convention (class naming) when we get the entities.<br><img src="/content/images/2016/12/p1_7.png" alt="setup publish db" title="setup publish db"><br>In <strong>Target database connection</strong> to get a proper connection string we click on <strong>Edit.</strong></p>
+<p>We set <strong>server name</strong> with “.” or “localhost” or the name of your machine. <strong>Authentication</strong> windows authentication or sql authentication in case we want it, we click on OK to get the connection string.<br><img src="/content/images/2016/12/p1_8.png" alt="db connection" title="db connection"></p>
+<p><img src="/content/images/2016/12/p1_9.png" alt="save connection" title="save connection"><br>Then we click on <strong>Save Profile As</strong></p>
+<p><img src="/content/images/2016/12/p1_10.png" alt="load profile" title="load profile"><br>So in a future deployment we can reuse those settings clicking on <strong>Load Profile</strong> then searching the previous generated xml.</p>
+<p>Let’s click on <strong>Publish</strong> to generate the DB, we will see something like this<br><img src="/content/images/2016/12/p1_11.png" alt="publish results" title="publish results"></p>
+<p>And this<br><img src="/content/images/2016/12/p1_12.png" alt="db results" title="db results"><br>Now we have a DB. </p>
+<h2 id="Web-and-DAL-Projects"><a href="#Web-and-DAL-Projects" class="headerlink" title="Web and DAL Projects"></a>Web and DAL Projects</h2><p>Let’s create two projects, an asp.net core application project and a .net core library which will be the DAL.<br><img src="/content/images/2016/12/p1_13.png" alt="solution root - new project" title="solution root - new project"></p>
+<p>We are going to create .net core library with the name Abc.DAL (data access layer)<br><img src="/content/images/2016/12/p1_14.png" alt="new project" title="new project"><br><img src="/content/images/2016/12/p1_15.png" alt="new project - dal" title="new project - dal"></p>
+<p>According to <a href="https://docs.microsoft.com/en-us/ef/core/get-started/aspnetcore/existing-db" target="_blank" rel="noopener">Microsoft documentation</a> we are not able to create Entities from an existing DB in a .net core library, that’s the reason we are going to get the entities using the asp.net core application and then move the entities in the DAL library.</p>
+<p>Let’s create an asp.net core web application<br><img src="/content/images/2016/12/p1_16.png" alt="new web project" title="new web project"></p>
+<p>We are going to set the <strong>name</strong> Abc.Web<br><img src="/content/images/2016/12/p1_17.png" alt="name project" title="name project"></p>
+<h3 id="Setting-up-Web"><a href="#Setting-up-Web" class="headerlink" title="Setting up Web"></a>Setting up Web</h3><p>We select <strong>Web Application Template</strong><br><img src="/content/images/2016/12/p1_18.png" alt="web application template" title="web application template"></p>
+<p>We are going to install these packages<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- Microsoft.EntityFrameworkCore.SqlServer</span><br><span class="line">- Microsoft.EntityFrameworkCore.Tools –Pre</span><br><span class="line">- Microsoft.EntityFrameworkCore.Design</span><br><span class="line">- Microsoft.EntityFrameworkCore.SqlServer.Design</span><br></pre></td></tr></table></figure></p>
+<p>We can add them manually using project.json or we can use the nugget package manager.<br><img src="/content/images/2016/12/p1_19.png" alt="project.json" title="project.json"><br>Using the nugget package manager console (Tools-&gt; Nugget Package Manager-&gt; Package Manager Console) don’t forget to select the proper project<br><img src="/content/images/2016/12/p1_20.png" alt="package manager console" title="package manager console"></p>
+<p>Let’s install the packages, in order we should </p>
+<p><img src="/content/images/2016/12/p1_21.png" alt="packages installation" title="packages installation"></p>
+<p>Then we can run the following instruction in the console to get the models from the existing db<br><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Scaffold-DbContext <span class="string">"Server=localhost;Database=AbcDatabase;Trusted_Connection=True;MultipleActiveResultSets=True"</span> Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models</span><br></pre></td></tr></table></figure></p>
+<p><img src="/content/images/2016/12/p1_22.png" alt="Scaffold-DbContext" title="Scaffold-DbContext"></p>
+<p><strong>-OutputDir “Folder”</strong> you can specify a particular folder name.</p>
+<p>Now we can see a new folder with the models of the existing db<br><img src="/content/images/2016/12/p1_23.png" alt="entities" title="entities"></p>
+<p>Now we can move the models to the .net core library. So let’s copy the Models folder and paste it on Abc.Dal project, we will have something like this<br><img src="/content/images/2016/12/p1_24.png" alt="entities in DAL" title="entities in DAL"></p>
+<p>Now we can remove Models folder in Abc.Web</p>
+<h3 id="Setting-up-DAL"><a href="#Setting-up-DAL" class="headerlink" title="Setting up DAL"></a>Setting up DAL</h3><p>We should install the packages red marked in the using<br><img src="/content/images/2016/12/p1_25.png" alt="dependencies in DAL" title="dependencies in DAL"></p>
+<p>For all the classes in Models folder we should update the namespace according to the project and remove the partial definition (partial means one class divided into different files)<br><img src="/content/images/2016/12/p1_26.png" alt="DbContext in Dal" title="DbContext in Dal"></p>
+<p>We will have something like this<br><img src="/content/images/2016/12/p1_27.png" alt="DbContext modified in Dal" title="DbContext modified in Dal"></p>
+<p>Let’s add the Abc.DAL reference in Abc.Web<br>Right click on References then click on <strong>Add Reference</strong><br><img src="/content/images/2016/12/p1_28.png" alt="Add DAL reference in Web" title="Add DAL reference in Web"></p>
+<p>We are going to add a Solution reference, so let’s check Abc.DAL then click on OK<br><img src="/content/images/2016/12/p1_29.png" alt="reference manager in Web" title="reference manager in Web"></p>
+<p>Back in Abc.DAL project<br>In the Database Context there’s a suggestion that says<br>“To protect potentially sensitive information in your connection string, you should move it out of source code”<br><img src="/content/images/2016/12/p1_30.png" alt="DBContext in DAL" title="DBContext in DAL"></p>
+<p>We will move the connection string to a particular file for security purposes.</p>
+<p>Let’s copy the connections string, then go to the folder appsettings.json (this is a file to create any entry setting we need for our project) in the Abc.Web project<br><img src="/content/images/2016/12/p1_31.png" alt="appsettings.json in Web" title="appsettings.json in Web"></p>
+<p>As we know it’s a json file so let’s create a new connection string object with the connection string we copied before<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"ConnectionStrings"</span>: &#123;</span><br><span class="line">    <span class="string">"AbcDatabase"</span>: <span class="string">"Data Source=localhost;Initial Catalog=AbcDatabase;Integrated Security=True;MultipleActiveResultSets=True;"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>Would be something like this<br><img src="/content/images/2016/12/p1_32.png" alt="appsettings.json modified in Web" title="appsettings.json modified in Web"><br>Save the json file.</p>
+<p>Then go to the Startup.cs in Abc.Web (remember this is a file where we inject our dependencies to the pipeline)<br><img src="/content/images/2016/12/p1_33.png" alt="startup" title="startup"></p>
+<p>In configure services we can add any service we want in the pipeline, so we need the IConfigurationRoot (allows us to get access to configuration properties) and the database context (don’t forget that the order matters, so we will add them before Mvc).<br>It would be something like this</p>
+<p><img src="/content/images/2016/12/p1_34.png" alt="ConfigureServices" title="ConfigureServices"></p>
+<p>Let’s go back to Abc.DAL in our Database Context class<br><img src="/content/images/2016/12/p1_35.png" alt="DbContext" title="DbContext"></p>
+<p>We will add a constructor and call the base class constructor as well, we will inject IConfiguration in the constructor (line 12). Then we will get the connection string using the configuration interface (line 23). Now we can save and go back to Abc.Web to test if everything works.<br>Just before going back to Abc.Web, let’s insert some records.<br><img src="/content/images/2016/12/p1_36.png" alt="sql statements" title="sql statements"></p>
+<p>Go back to Abc.Web, to do a quick test just add in home controller a query to get all the products, so I’m going to use linq to perform the query.<br><img src="/content/images/2016/12/p1_37.png" alt="LinQ query" title="LinQ query"></p>
+<p>We join the tables and return an anonymous type to make a custom result, let’s run the application.<br><img src="/content/images/2016/12/p1_38.png" alt="results LinQ query in Db" title="results LinQ query in Db"></p>
+<p>Good news, now we have data from the db. Finally we have an approach to create a DAL from an existing DB in asp.net core.<br>You can download the source from the <a href="https://github.com/skn0/aspnetCoreDALEFCore" target="_blank" rel="noopener">repository</a>.</p>
+<h2 id="Bonus"><a href="#Bonus" class="headerlink" title="Bonus:"></a>Bonus:</h2><p>Please just before starting to code, play this track, with the forgiveness of the guitar hero Hendrix, this is my favorite version of Little Wing. Stevie Ray Vaughan great blues rock guitarist, he recorded a lot of great songs.<br><a href="https://play.spotify.com/track/5XNpdKmlLJPUbwKQceX2tW" target="_blank" rel="noopener">Stevie Ray Vaughan -  Little Wing</a></p>
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+    </div>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Database-Project"><span class="toc-number">1.</span> <span class="toc-text">Database Project</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-and-DAL-Projects"><span class="toc-number">2.</span> <span class="toc-text">Web and DAL Projects</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-Web"><span class="toc-number">2.1.</span> <span class="toc-text">Setting up Web</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setting-up-DAL"><span class="toc-number">2.2.</span> <span class="toc-text">Setting up DAL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Bonus"><span class="toc-number">3.</span> <span class="toc-text">Bonus:</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&text=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&is_video=false&description=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)&body=Check out this article: http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&title=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/&name=ASP.NET Core - DAL and Entities from existing DB (using EF Core 1.1)&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$("#toc-footer").toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$("#share-footer").toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$("#nav-footer").toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Code Rocks!
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/blogroll/">BlogRoll</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    <script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-88773065-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+    <script type="text/javascript">
+        var disqus_shortname = 'http-coderocks-co';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
+    </script>
+
+
+</body>
+</html>
