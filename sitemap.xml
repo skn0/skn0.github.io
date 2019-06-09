@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>http://coderocks.co/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/about/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/archives/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/blogroll/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/2019/06/09/aspnetCore2-2-CustomDbLogger-Using-Serilog/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/2017/01/10/aspnetCore-Using-JQuery-DataTables/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/2016/12/17/aspnetCore-DAL-and-Entities-from-existing-DB-using-EFCore-1-1/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/2016/12/10/hello-world/</loc>
+  <lastmod>2019-06-09T18:34:17+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/ASP-NET-Core/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/Database-Logger/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/Serilog/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/DataTables/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/JQuery/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/Entity-Framework-Core/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>http://coderocks.co/tags/Hello-World/</loc>
+  <lastmod>2019-06-09T18:34:18+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>
